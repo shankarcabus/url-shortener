@@ -1,18 +1,22 @@
+Rooms = new Meteor.Collection("rooms");
+
+Accounts.ui.config({
+  requestPermissions: {
+    facebook: ['user_likes'],
+    github: ['user', 'repo']
+  },
+  requestOfflineToken: {
+    google: true
+  },
+  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
+});
+
 if (Meteor.isClient) {
 
-  Template.content.username = function () {
-    return Session.get("name") || "Anonymous";
+  Template.content.logged = function () {
+    return Meteor.user();
   };
 
-  // Session.set("name", "Bob"); // page updates automatically!
-
-  Template.hello.events({
-    'click input' : function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
-  });
 }
 
 if (Meteor.isServer) {
@@ -20,4 +24,3 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
-

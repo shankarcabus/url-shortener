@@ -7,3 +7,6 @@ autopublish
 insecure
 preserve-inputs
 less
+accounts-ui
+jquery
+accounts-password

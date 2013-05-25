@@ -13,18 +13,14 @@
     <a href="/" class="top-logo no-style">
       URL Shortener
     </a>
-    <div class="top-login">
-      <a href="">
-        Login
-        <i class="icon-caret-down"></i>
-      </a>
+    <div class="top-login login-close-text">
+      {{loginButtons align="right"}}
     </div>
   </div>
 </template>
 
 <template name="content">
   <div class="content">
-    <h1>{{username}}</h1>
     <form action="" class="main-field">
       <input type="text" placeholder="Paste the URL to be shortened">
       <a href="#" class="btn no-style">Give me!</a>
