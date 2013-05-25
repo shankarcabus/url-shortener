@@ -1,0 +1,153 @@
+@alizarin: #e74c3c;
+@pomegranate: #c0392b;
+@belizeHole: #2980b9;
+@peterRiver: #3498db;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+}
+
+html, body {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: @alizarin;
+  &:hover {
+    text-decoration: underline;
+  }
+  &.no-style {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+input, textarea {
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+// Clearfix for clearing floats like a boss h5bp.com/q
+.clearfix() {
+  zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    zoom: 1;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+.top {
+  width: 100%;
+  height: 40px;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #ddd;
+  .clearfix();
+  .top-logo {
+    float: left;
+    display: block;
+    padding: 10px 10px 0 10px;
+    color: @alizarin;
+    font-weight: bold;
+    font-size: 20px;
+    height: 30px;
+    &:hover {
+      background-color: #eee;
+    }
+  }
+  .top-login {
+    float: right;
+    margin: 10px 10px 0 0;
+    font-size: 12px;
+  }
+}
+
+// .content {
+//   min-height: 100%;
+//   // 40px = top width | 1px = top border bottom
+//   min-height: ~"-o-calc(100% - 40px - 1px)";
+//   min-height: ~"-moz-calc(100% - 40px - 1px)";
+//   min-height: ~"calc(100% - 40px - 1px)";
+// }
+
+.main-field {
+  margin: 100px auto 0 auto;
+  width: 560px;
+  .clearfix();
+  input {
+    padding: 8px;
+    width: 450px;
+    float: left;
+  }
+  .btn {
+    float: right;
+    background-color: @alizarin;
+    color: #fff;
+    padding: 10px;
+    &:hover {
+      background-color: @pomegranate;
+    }
+  }
+}
+
+.short-url {
+  width: 530px;
+  margin: 15px auto 0 auto;
+  padding: 15px;
+  text-align: center;
+  background-color: #eee;
+  position: relative;
+  font-weight: bold;
+  font-size: 22px;
+  i {
+    position: absolute;
+    top: -25px;
+    font-size: 40px;
+    color: #eee;
+    left: ~"calc(50% - 10px)";
+  }
+}
+
+.url-list {
+  width: 560px;
+  margin: 0 auto;
+  margin-top: 50px;
+  table {
+    text-align: left;
+    font-size: 12px;
+    width: 100%;
+    .tb-original-url, .tb-short-url {
+      width: 40%;
+    }
+    .tb-date-url {
+      width: 20%;
+    }
+    thead {
+      background-color: @alizarin;
+      color: #fff;
+      font-size: 13px;
+      th {
+        padding: 3px;
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #eee;
+        &:hover {
+          background-color: #eee;
+        }
+      }
+      td {
+        padding: 5px 3px;
+      }
+    }
+  }
+}

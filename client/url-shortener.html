@@ -1,0 +1,73 @@
+<head>
+  <title>url-shortener</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  {{> top}}
+  {{> content}}
+</body>
+
+<template name="top">
+  <div class="top">
+    <a href="/" class="top-logo no-style">
+      URL Shortener
+    </a>
+    <div class="top-login">
+      <a href="">
+        Login
+        <i class="icon-caret-down"></i>
+      </a>
+    </div>
+  </div>
+</template>
+
+<template name="content">
+  <div class="content">
+    <h1>{{username}}</h1>
+    <form action="" class="main-field">
+      <input type="text" placeholder="Paste the URL to be shortened">
+      <a href="#" class="btn no-style">Give me!</a>
+    </form>
+    <div class="short-url">
+      <i class="icon-caret-up"></i>
+      <span>http://url-shortener.meteor.com/h5Yta</span>
+    </div>
+    {{> list}}
+  </div>
+</template>
+
+<template name="list">
+  <div class="url-list">
+    <table>
+      <thead>
+        <tr>
+          <th class="tb-original-url">Original URL</th>
+          <th class="tb-short-url">Short URL</th>
+          <th class="tb-date-url">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="#">www.google.com.br</a></td>
+          <td><a href="#">url-shortener.meteor.com/h5Yta</a></td>
+          <td>12/05/2013 18:05</td>
+        </tr>
+        <tr>
+          <td><a href="#">www.google.com.br</a></td>
+          <td><a href="#">url-shortener.meteor.com/h5Yta</a></td>
+          <td>12/05/2013 18:05</td>
+        </tr>
+        <tr>
+          <td><a href="#">www.google.com.br</a></td>
+          <td><a href="#">url-shortener.meteor.com/h5Yta</a></td>
+          <td>12/05/2013 18:05</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="hello">
+  {{greeting}}
+</template>
