@@ -54,8 +54,8 @@
       <tbody>
         {{# each urls}}
           <tr>
-            <td><a href="#">{{originalUrl}}</a></td>
-            <td><a href="#">{{shortUrl}}</a></td>
+            <td><a href="{{originalUrl}}">{{truncate originalUrl 40}}</a></td>
+            <td><a href="{{absoluteUrl}}{{shortUrl}}">{{absoluteUrl}}{{shortUrl}}</a></td>
             <td>{{date}}</td>
           </tr>
         {{/each}}
@@ -65,6 +65,7 @@
   </div>
 </template>
 
-<template name="hello">
-  {{greeting}}
+<template name="redirect">
+  REDIRECT...
 </template>
+

@@ -1,4 +1,49 @@
-// Urls = new Meteor.Collection("urls");
+Meteor.Router.add({
+  '/:_id': { to: function(id) {
+    url = Urls.find({shortUrl: id}).fetch();
+    if (url.length) {
+      window.location = url[0].originalUrl;
+    }
+  }}
+});
+
+Number.prototype.toBase = function (base) {
+  var symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    decimal = this,
+    conversion = "";
+
+  // Base may not be greater than symbols neither less than 2
+  if (base > symbols.length || base < 2) {
+    return false;
+  }
+
+  // Using the method of successive divisions
+  while (decimal > 0) {
+    // Quotient of division
+    var quotient = Math.floor(decimal / base)
+
+    // Remainder of division
+    var remainder = decimal - (base * quotient)
+
+    // Prepend the symbol
+    conversion = symbols[remainder] + conversion;
+
+    decimal = quotient;
+  }
+  return conversion;
+}
+
+var encodeTime = function(timestamp){
+  var base = 62;
+  return (Math.floor(timestamp)).toBase(base)
+}
+
+Handlebars.registerHelper('truncate', function(string, size) {
+  if (string.length <= size) {
+    return string;
+  }
+  return string.substring(0, size) + '...';
+});
 
 Accounts.ui.config({
   requestPermissions: {
@@ -14,15 +59,17 @@ Accounts.ui.config({
 Template.field.events({
   'click #giveme': function(e){
 
+    var now = Date.now();
+
     var originalUrl = $(".main-field input").val();
-    var shortUrl = "htpp://url-shortener.meteor.com/XXXX"
+    var shortUrl = encodeTime(now)
 
     if (Meteor.user()) {
       Urls.insert({
         user: Meteor.userId(),
         originalUrl: originalUrl,
         shortUrl: shortUrl,
-        date: Date.now()
+        date: now
       });
     }
 
@@ -38,6 +85,10 @@ if (Meteor.isClient) {
     {
       sort: {date: -1}}
     );
+  }
+
+  Template.list.absoluteUrl = function(){
+    return Meteor.absoluteUrl();
   }
 }
 
