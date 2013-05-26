@@ -98,16 +98,17 @@ input, textarea {
   }
 }
 
-.short-url {
+.short-url-box {
   display: none;
   width: 530px;
+  height: 40px;
   margin: 15px auto 0 auto;
   padding: 15px;
-  text-align: center;
   background-color: #eee;
   position: relative;
   font-weight: bold;
   font-size: 22px;
+  text-align: center;
   i {
     position: absolute;
     top: -25px;
@@ -115,20 +116,47 @@ input, textarea {
     color: #eee;
     left: ~"calc(50% - 10px)";
   }
+  &.loading {
+    .short-url-loader {
+      display: block;
+    }
+  }
+  &.loaded {
+    display: block;
+    .short-url {
+      display: block;
+    }
+  }
+}
+
+.short-url-loader {
+  display: none;
+}
+
+.short-url {
+  width: 100%;
+  text-align: center;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  height: 30px;
+  display: none;
 }
 
 .url-list {
-  width: 560px;
+  width: 90%;
+  min-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   margin-top: 50px;
   table {
     text-align: left;
     font-size: 12px;
     width: 100%;
-    .tb-original-url, .tb-short-url {
+    .th-original-url, .th-short-url {
       width: 40%;
     }
-    .tb-date-url {
+    .th-date-url {
       width: 20%;
     }
     thead {

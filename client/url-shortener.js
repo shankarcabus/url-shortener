@@ -45,6 +45,13 @@ Handlebars.registerHelper('truncate', function(string, size) {
   return string.substring(0, size) + '...';
 });
 
+Handlebars.registerHelper('toDate', function(timestamp, size) {
+  var date = new Date();
+  date.setTime(timestamp);
+
+  return date.toLocaleDateString() + ' - ' + date.toLocaleTimeString()
+});
+
 Accounts.ui.config({
   requestPermissions: {
     facebook: ['user_likes'],
@@ -57,24 +64,33 @@ Accounts.ui.config({
 });
 
 Template.field.events({
-  'click #giveme': function(e){
+  'click #giveme': function(){
 
     var now = Date.now();
 
     var originalUrl = $(".main-field input").val();
-    var shortUrl = encodeTime(now)
+    var shortUrl = encodeTime(now);
+    var $urlBox = $(".short-url-box");
 
-    if (Meteor.user()) {
-      Urls.insert({
-        user: Meteor.userId(),
-        originalUrl: originalUrl,
-        shortUrl: shortUrl,
-        date: now
-      });
-    }
+    $urlBox.removeClass('loaded').addClass('loading');
 
-    $(".short-url").show();
+    Urls.insert({
+      user: Meteor.user()? Meteor.userId() : '',
+      originalUrl: originalUrl,
+      shortUrl: shortUrl,
+      date: now
+    });
+
+    $urlBox.removeClass('loading').addClass('loaded');
+    $urlBox.find('.short-url').text(Meteor.absoluteUrl()+shortUrl).select();
+
+    return false;
+  },
+
+  'click .short-url-box': function(){
+    $('.short-url').select();
   }
+
 });
 
 if (Meteor.isClient) {

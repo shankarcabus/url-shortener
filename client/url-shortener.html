@@ -35,9 +35,12 @@
     <input type="text" placeholder="Paste the URL to be shortened">
     <a id="giveme" href="#" class="btn no-style">Give me!</a>
   </div>
-  <div class="short-url">
+  <div class="short-url-box">
     <i class="icon-caret-up"></i>
-    <span>http://url-shortener.meteor.com/h5Yta</span>
+    <div class="short-url-loader">
+      <img src="../images/loader.gif">
+    </div>
+    <textarea class="short-url" readonly="true"></textarea>
   </div>
 </template>
 
@@ -46,9 +49,9 @@
     <table>
       <thead>
         <tr>
-          <th class="tb-original-url">Original URL</th>
-          <th class="tb-short-url">Short URL</th>
-          <th class="tb-date-url">Date</th>
+          <th class="th-original-url">Original URL</th>
+          <th class="th-short-url">Short URL</th>
+          <th class="th-date-url">Date</th>
         </tr>
       </thead>
       <tbody>
@@ -56,7 +59,7 @@
           <tr>
             <td><a href="{{originalUrl}}">{{truncate originalUrl 40}}</a></td>
             <td><a href="{{absoluteUrl}}{{shortUrl}}">{{absoluteUrl}}{{shortUrl}}</a></td>
-            <td>{{date}}</td>
+            <td>{{toDate date}}</td>
           </tr>
         {{/each}}
 
