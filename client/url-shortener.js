@@ -7,27 +7,28 @@ Meteor.Router.add({
   }}
 });
 
+if (typeof String.prototype.startsWith != 'function') {
+  String.prototype.startsWith = function (str){
+    return this.indexOf(str) == 0;
+  };
+}
+
 Number.prototype.toBase = function (base) {
   var symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
     decimal = this,
     conversion = "";
-
   // Base may not be greater than symbols neither less than 2
   if (base > symbols.length || base < 2) {
     return false;
   }
-
   // Using the method of successive divisions
   while (decimal > 0) {
     // Quotient of division
     var quotient = Math.floor(decimal / base)
-
     // Remainder of division
     var remainder = decimal - (base * quotient)
-
     // Prepend the symbol
     conversion = symbols[remainder] + conversion;
-
     decimal = quotient;
   }
   return conversion;
@@ -38,19 +39,10 @@ var encodeTime = function(timestamp){
   return (Math.floor(timestamp)).toBase(base)
 }
 
-Handlebars.registerHelper('truncate', function(string, size) {
-  if (string.length <= size) {
-    return string;
-  }
-  return string.substring(0, size) + '...';
-});
-
-Handlebars.registerHelper('toDate', function(timestamp, size) {
-  var date = new Date();
-  date.setTime(timestamp);
-
-  return date.toLocaleDateString() + ' - ' + date.toLocaleTimeString()
-});
+var isUrl= function(url){
+  var urlRegex = /(https?:\/\/[^\s\(\)]+)|(w{3}(\.\w+){2,}((\/|\?)[^\s\(\)]*)?)|((((?:\b)\w{1,2}(?=\.))|[^w\W]{3}|\w{4,})(\.\w+)+(\/|\?)[^\s\(\)]*)/i;
+  return urlRegex.test(url);
+}
 
 Accounts.ui.config({
   requestPermissions: {
@@ -66,31 +58,44 @@ Accounts.ui.config({
 Template.field.events({
   'click #giveme': function(){
 
-    var now = Date.now();
+    var originalUrl = $('.main-field input').val(),
+      $urlBox = $('.short-url-box'),
+      $mainField = $('.main-field'),
+      now = Date.now(),
+      shortUrl = encodeTime(now);
 
-    var originalUrl = $(".main-field input").val();
-    var shortUrl = encodeTime(now);
-    var $urlBox = $(".short-url-box");
+    $mainField.removeClass('invalid');
+    $urlBox.removeClass('loaded');
 
-    $urlBox.removeClass('loaded').addClass('loading');
+    if (isUrl(originalUrl)) {
 
-    Urls.insert({
-      user: Meteor.user()? Meteor.userId() : '',
-      originalUrl: originalUrl,
-      shortUrl: shortUrl,
-      date: now
-    });
+      // Adds 'http://' to original URL when there isn't
+      if (!(originalUrl.startsWith('http://') || originalUrl.startsWith('https://'))) {
+        originalUrl = 'http://'+originalUrl;
+      }
 
-    $urlBox.removeClass('loading').addClass('loaded');
-    $urlBox.find('.short-url').text(Meteor.absoluteUrl()+shortUrl).select();
+      $urlBox.addClass('loading');
 
-    return false;
+      Urls.insert({
+        user: Meteor.user()? Meteor.userId() : '',
+        originalUrl: originalUrl,
+        shortUrl: shortUrl,
+        date: now
+      });
+
+      $urlBox.removeClass('loading').addClass('loaded');
+      $urlBox.find('.short-url').text(Meteor.absoluteUrl()+shortUrl).select();
+
+      return false;
+    }
+
+    $mainField.addClass('invalid');
+
   },
 
   'click .short-url-box': function(){
     $('.short-url').select();
   }
-
 });
 
 if (Meteor.isClient) {

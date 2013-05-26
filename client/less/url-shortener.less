@@ -1,7 +1,5 @@
-@alizarin: #e74c3c;
-@pomegranate: #c0392b;
-@belizeHole: #2980b9;
-@peterRiver: #3498db;
+@belizeHole: #3498db;
+@peterRiver: #2980b9;
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -14,7 +12,7 @@ html, body {
 
 a {
   text-decoration: none;
-  color: @alizarin;
+  color: @belizeHole;
   &:hover {
     text-decoration: underline;
   }
@@ -55,7 +53,7 @@ input, textarea {
     float: left;
     display: block;
     padding: 10px 10px 0 10px;
-    color: @alizarin;
+    color: @belizeHole;
     font-weight: bold;
     font-size: 20px;
     height: 30px;
@@ -70,16 +68,8 @@ input, textarea {
   }
 }
 
-// .content {
-//   min-height: 100%;
-//   // 40px = top width | 1px = top border bottom
-//   min-height: ~"-o-calc(100% - 40px - 1px)";
-//   min-height: ~"-moz-calc(100% - 40px - 1px)";
-//   min-height: ~"calc(100% - 40px - 1px)";
-// }
-
 .main-field {
-  margin: 100px auto 0 auto;
+  margin: 50px auto 0 auto;
   width: 560px;
   .clearfix();
   input {
@@ -89,13 +79,23 @@ input, textarea {
   }
   .btn {
     float: right;
-    background-color: @alizarin;
+    background-color: @belizeHole;
     color: #fff;
     padding: 10px;
     &:hover {
-      background-color: @pomegranate;
+      background-color: @peterRiver;
     }
   }
+  &.invalid {
+    .field-error-msg {
+      visibility: visible;
+    }
+  }
+}
+
+.field-error-msg {
+  color: red;
+  visibility: hidden;
 }
 
 .short-url-box {
@@ -160,7 +160,7 @@ input, textarea {
       width: 20%;
     }
     thead {
-      background-color: @alizarin;
+      background-color: @belizeHole;
       color: #fff;
       font-size: 13px;
       th {
