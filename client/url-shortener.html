@@ -21,15 +21,23 @@
 
 <template name="content">
   <div class="content">
-    <form action="" class="main-field">
-      <input type="text" placeholder="Paste the URL to be shortened">
-      <a href="#" class="btn no-style">Give me!</a>
-    </form>
-    <div class="short-url">
-      <i class="icon-caret-up"></i>
-      <span>http://url-shortener.meteor.com/h5Yta</span>
-    </div>
-    {{> list}}
+    {{> field}}
+
+    {{#if currentUser}}
+      {{> list}}
+    {{/if}}
+
+  </div>
+</template>
+
+<template name="field">
+  <div class="main-field">
+    <input type="text" placeholder="Paste the URL to be shortened">
+    <a id="giveme" href="#" class="btn no-style">Give me!</a>
+  </div>
+  <div class="short-url">
+    <i class="icon-caret-up"></i>
+    <span>http://url-shortener.meteor.com/h5Yta</span>
   </div>
 </template>
 
@@ -44,21 +52,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><a href="#">www.google.com.br</a></td>
-          <td><a href="#">url-shortener.meteor.com/h5Yta</a></td>
-          <td>12/05/2013 18:05</td>
-        </tr>
-        <tr>
-          <td><a href="#">www.google.com.br</a></td>
-          <td><a href="#">url-shortener.meteor.com/h5Yta</a></td>
-          <td>12/05/2013 18:05</td>
-        </tr>
-        <tr>
-          <td><a href="#">www.google.com.br</a></td>
-          <td><a href="#">url-shortener.meteor.com/h5Yta</a></td>
-          <td>12/05/2013 18:05</td>
-        </tr>
+        {{# each urls}}
+          <tr>
+            <td><a href="#">{{originalUrl}}</a></td>
+            <td><a href="#">{{shortUrl}}</a></td>
+            <td>{{date}}</td>
+          </tr>
+        {{/each}}
+
       </tbody>
     </table>
   </div>
