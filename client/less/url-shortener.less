@@ -181,3 +181,34 @@ input, textarea {
   }
 }
 
+// Overwrite login-buttons component
+#login-buttons {
+  .accounts-dialog {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    .login-close-text {
+      font-size: 12px;
+      text-decoration: none;
+      color: #777;
+    }
+  }
+  #login-dropdown-list {
+    right: 6px !important; // TOFIX
+    .login-button {
+      background: @belizeHole;
+      box-shadow: none;
+      text-shadow: none;
+      border: none;
+      border-radius: 0;
+    }
+    input {
+      border: 1px solid #ccc;
+      border-radius: 0;
+    }
+    label {
+      font-weight: normal;
+      color: #555;
+    }
+  }
+}
+

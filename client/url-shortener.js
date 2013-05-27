@@ -1,9 +1,10 @@
 Meteor.Router.add({
-  '/:_id': { to: function(id) {
+  '/:_id': { as: 'redirect', to: function(id) {
     url = Urls.find({shortUrl: id}).fetch();
     if (url.length) {
       window.location = url[0].originalUrl;
     }
+    return false;
   }}
 });
 
@@ -45,14 +46,7 @@ var isUrl= function(url){
 }
 
 Accounts.ui.config({
-  requestPermissions: {
-    facebook: ['user_likes'],
-    github: ['user', 'repo']
-  },
-  requestOfflineToken: {
-    google: true
-  },
-  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
+  passwordSignupFields: 'USERNAME_AND_EMAIL'
 });
 
 Template.field.events({
@@ -76,6 +70,7 @@ Template.field.events({
 
       $urlBox.addClass('loading');
 
+      // Insert new URL in database
       Urls.insert({
         user: Meteor.user()? Meteor.userId() : '',
         originalUrl: originalUrl,
@@ -111,10 +106,4 @@ if (Meteor.isClient) {
   Template.list.absoluteUrl = function(){
     return Meteor.absoluteUrl();
   }
-}
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
 }
